@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  email        String        @unique
+  password     String
+  year         Int
+  createdAt    DateTime      @default(now())
+  schedules    Schedule[]
+  achievements Achievement[]
+}
+
+model Schedule {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String   @db.ObjectId
+  date     DateTime
+  tasks    Task[]
+  progress Int      @default(0) // 0-100
+  User     User     @relation(fields: [userId], references: [id])
+}
+
+model Task {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  scheduleId String    @db.ObjectId
+  title      String
+  subject    String
+  startAt    DateTime?
+  endAt      DateTime?
+  priority   Int       @default(2) // 1-High 2-Normal 3-Low
+  status     String    @default("pending") // pending | in-progress | done | skipped
+  Schedule   Schedule  @relation(fields: [scheduleId], references: [id])
+}
+
+model Achievement {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String   @db.ObjectId
+  title    String
+  detail   String?
+  earnedAt DateTime @default(now())
+  User     User     @relation(fields: [userId], references: [id])
+}

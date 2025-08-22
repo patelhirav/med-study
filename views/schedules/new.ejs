@@ -1,0 +1,53 @@
+<div class="card">
+  <h2>New Schedule</h2>
+  <form method="POST" action="/schedules">
+    <!-- Schedule Date (calendar picker only) -->
+    <label>Schedule Date</label>
+    <input type="date" name="date" value="<%= today %>" required />
+
+    <h3>Tasks</h3>
+    <div id="tasks">
+      <div class="task-row">
+        <input type="text" name="titles[]" placeholder="Task title" required />
+        <input type="text" name="subjects[]" placeholder="Subject" />
+        <select name="priorities[]">
+          <option value="1">High</option>
+          <option value="2" selected>Normal</option>
+          <option value="3">Low</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="button" onclick="addTask()">+ Add another task</button>
+    <button type="submit">Create</button>
+  </form>
+</div>
+
+<script>
+  function addTask() {
+    const row = document.createElement('div');
+    row.className = 'task-row';
+    row.innerHTML = `
+      <input type="text" name="titles[]" placeholder="Task title" required />
+      <input type="text" name="subjects[]" placeholder="Subject" />
+      <select name="priorities[]">
+        <option value="1">High</option>
+        <option value="2" selected>Normal</option>
+        <option value="3">Low</option>
+      </select>
+      <button type="button" onclick="removeTask(this)">Remove</button>
+    `;
+    document.getElementById('tasks').appendChild(row);
+  }
+
+  function removeTask(button) {
+    button.parentElement.remove();
+  }
+
+  // Set default date to today
+  const dateInput = document.querySelector('input[name="date"]');
+  if (!dateInput.value) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.value = today;
+  }
+</script>

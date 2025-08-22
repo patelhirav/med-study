@@ -1,0 +1,32 @@
+:root { --bg:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --accent:#38bdf8; --danger:#ef4444; --ok:#22c55e; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); }
+.container { max-width: 1100px; margin: 32px auto; padding: 0 16px; }
+.navbar { display:flex; justify-content: space-between; align-items:center; padding: 12px 16px; background: #0b1220; border-bottom: 1px solid #1f2937; position: sticky; top:0; }
+.navbar a { color: var(--text); margin-right: 12px; text-decoration: none; }
+.brand { font-weight:700; color: var(--accent); }
+.card { background: var(--card); padding: 20px; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.2); margin-bottom: 20px; }
+.card.narrow { max-width: 420px; margin: 40px auto; }
+h1,h2,h3,h4 { margin: 0 0 12px; }
+label { display:block; margin: 10px 0 4px; }
+input, select { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #374151; background:#0b1220; color: var(--text); margin-bottom: 10px; }
+.table { width:100%; border-collapse: collapse; }
+.table th, .table td { border-bottom: 1px solid #1f2937; padding: 10px; }
+.row { display:flex; gap: 12px; align-items:center; }
+.row.between { justify-content: space-between; }
+.btn { background: var(--accent); color:#00121a; border:none; padding:10px 14px; border-radius: 10px; cursor:pointer; font-weight:600; }
+.btn.small { padding:6px 10px; font-size: 14px; }
+.btn.primary { background: var(--ok); color:#03110a; }
+.btn.danger { background: var(--danger); color: #2c0a0a; }
+.inline { display:inline-block; margin:0 4px; }
+.alert { background:#1f2937; border-left: 4px solid var(--danger); padding:10px; margin:10px 0; border-radius: 8px; }
+.muted { color: var(--muted); }
+.grid.two { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 900px){ .grid.two { grid-template-columns: 1fr; } }
+.progress { background:#0b1220; border: 1px solid #1f2937; border-radius: 999px; height: 10px; margin: 8px 0; overflow:hidden; }
+.progress.small { height: 8px; }
+.progress-bar { background: var(--ok); height: 100%; width: 0%; transition: width .3s ease; }
+.badges { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 12px; }
+.badge { background:#0b1220; border:1px solid #1f2937; padding:12px; border-radius: 12px; }
+.task-row { display:grid; grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr .8fr; gap:8px; margin-bottom:8px; }
+.nowrap { white-space: nowrap; }

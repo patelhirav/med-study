@@ -1,0 +1,67 @@
+<div class="card">
+  <h2>Edit Schedule</h2>
+  <form method="POST" action="/schedules/<%= schedule.id %>?_method=PUT">
+    <label>Date</label>
+    <input type="date" name="date" value="<%= new Date(schedule.date).toISOString().slice(0,10) %>" required />
+    <button class="btn small" type="submit">Save Date</button>
+  </form>
+
+  <h3>Tasks</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Subject</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% schedule.tasks.forEach(t=> { %>
+        <tr>
+          <td>
+            <%= t.title %>
+          </td>
+          <td>
+            <%= t.subject %>
+          </td>
+          <td>
+            <%= {1:'High',2:'Normal',3:'Low'}[t.priority] %>
+          </td>
+          <td>
+            <%= t.status %>
+          </td>
+          <td class="nowrap">
+            <form class="inline" method="POST" action="/schedules/tasks/<%= t.id %>/status">
+              <select name="status">
+                <option value="pending" <%=t.status==='pending' ?'selected':'' %>>pending</option>
+                <option value="in-progress" <%=t.status==='in-progress' ?'selected':'' %>>in-progress</option>
+                <option value="done" <%=t.status==='done' ?'selected':'' %>>done</option>
+                <option value="skipped" <%=t.status==='skipped' ?'selected':'' %>>skipped</option>
+              </select>
+              <button class="btn small" type="submit">Update</button>
+            </form>
+            <form class="inline" method="POST" action="/schedules/tasks/<%= t.id %>/delete">
+              <button class="btn small danger" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+    </tbody>
+  </table>
+
+  <h3>Add Task</h3>
+  <form method="POST" action="/schedules/<%= schedule.id %>/tasks">
+    <input name="title" placeholder="Task title" required />
+    <input name="subject" placeholder="Subject" />
+    <input type="datetime-local" name="startAt" />
+    <input type="datetime-local" name="endAt" />
+    <select name="priority">
+      <option value="1">High</option>
+      <option value="2" selected>Normal</option>
+      <option value="3">Low</option>
+    </select>
+    <button class="btn" type="submit">Add</button>
+  </form>
+</div>

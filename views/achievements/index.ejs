@@ -1,0 +1,26 @@
+<div class="card">
+  <h2>Achievements</h2>
+  <p>Streak: <strong>
+      <%= stats.streak %>
+    </strong> days | Tasks completed: <strong>
+      <%= stats.totalDone %>
+    </strong></p>
+  <div class="badges">
+    <% if (!achievements.length) { %>
+      <p class="muted">No achievements yet. Keep studying daily to earn some!</p>
+      <% } %>
+        <% achievements.forEach(a=> { %>
+          <div class="badge">
+            <h4>
+              <%= a.title %>
+            </h4>
+            <p>
+              <%= a.detail || '' %>
+            </p>
+            <small>
+              <%= new Date(a.earnedAt).toDateString() %>
+            </small>
+          </div>
+          <% }) %>
+  </div>
+</div>

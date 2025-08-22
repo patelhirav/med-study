@@ -1,0 +1,16 @@
+<div class="card narrow">
+  <h2>Login</h2>
+  <% if (typeof error !=='undefined' && error) { %>
+    <div class="alert">
+      <%= error %>
+    </div>
+    <% } %>
+      <form method="POST" action="/login">
+        <label>Email</label>
+        <input type="email" name="email" required />
+        <label>Password</label>
+        <input type="password" name="password" required />
+        <button class="btn" type="submit">Login</button>
+      </form>
+      <p class="muted">No account? <a href="/register">Register</a></p>
+</div>

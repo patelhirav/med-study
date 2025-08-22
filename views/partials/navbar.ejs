@@ -1,0 +1,20 @@
+<nav class="navbar">
+  <div class="nav-left">
+    <a class="brand" href="/">MedStudyTrack</a>
+    <% if (currentUser) { %>
+      <a href="/schedules">Schedules</a>
+      <a href="/achievements">Achievements</a>
+      <a href="/history">History</a>
+      <% } %>
+  </div>
+  <div class="nav-right">
+    <% if (currentUser) { %>
+      <form method="POST" action="/logout">
+        <button class="btn small danger" type="submit">Logout</button>
+      </form>
+      <% } else { %>
+        <a class="btn small" href="/login">Login</a>
+        <a class="btn small" href="/register">Register</a>
+        <% } %>
+  </div>
+</nav>

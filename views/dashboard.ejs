@@ -1,0 +1,72 @@
+<section class="grid two">
+  <div class="card">
+    <h2>Today's Schedule</h2>
+    <p>Date: <strong>
+        <%= new Date(schedule.date).toDateString() %>
+      </strong></p>
+    <div class="progress">
+      <div class="progress-bar" style="width:<%= schedule.progress %>%"></div>
+    </div>
+    <p><strong>
+        <%= schedule.progress %>%
+      </strong> complete</p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Subject</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% (schedule.tasks || []).forEach(t=> { %>
+          <tr>
+            <td>
+              <%= t.title %>
+            </td>
+            <td>
+              <%= t.subject %>
+            </td>
+            <td>
+              <%= {1:'High',2:'Normal',3:'Low'}[t.priority] %>
+            </td>
+            <td>
+              <%= t.status %>
+            </td>
+            <td>
+              <form method="POST" action="/schedules/tasks/<%= t.id %>/status" class="inline">
+                <select name="status">
+                  <option value="pending" <%=t.status==='pending' ?'selected':'' %>>pending</option>
+                  <option value="in-progress" <%=t.status==='in-progress' ?'selected':'' %>>in-progress</option>
+                  <option value="done" <%=t.status==='done' ?'selected':'' %>>done</option>
+                  <option value="skipped" <%=t.status==='skipped' ?'selected':'' %>>skipped</option>
+                </select>
+                <button class="btn small" type="submit">Update</button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+      </tbody>
+    </table>
+    <a class="btn" href="/schedules/<%= schedule.id %>/edit">Add/Manage Tasks</a>
+  </div>
+
+  <div class="card">
+    <h2>Stats</h2>
+    <ul class="list">
+      <li>Streak: <strong>
+          <%= stats.streak %>
+        </strong> days</li>
+      <li>Total tasks (30 days): <strong>
+          <%= stats.totalTasks %>
+        </strong></li>
+      <li>Completed tasks (30 days): <strong>
+          <%= stats.doneTasks %>
+        </strong></li>
+    </ul>
+    <a class="btn" href="/achievements">View Achievements</a>
+  </div>
+</section>
